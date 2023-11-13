@@ -74,3 +74,13 @@ function calculate(
 ){
     calcfunc(a, b);
 };
+
+// creating custom types
+// by using the type key word and storing the type assignments in the variable name, you don't have to type our the type assignments inside the parameters in the function. You can just use the variable name instead. The variable name becaomes the type.
+
+type Addfn = (a: number, b: number) => number;
+
+
+function calculate2(a: number, b: number, calcFunc: Addfn){
+   calcFunc(a, b);
+};
