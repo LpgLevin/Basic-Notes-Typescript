@@ -64,3 +64,13 @@ function add2(a: number, b: number): number {
     const result = a + b;
     return result;
 }
+
+// Defining function types
+//Below you can see a function which takes a function as its 3rd parameter. calcfunc is the name of the parameter and it is a function which takes 2 numbers and returns a number. **calcfunc: (a: number, b: number) => number**
+function calculate(
+    a: number, 
+    b: number, 
+    calcfunc: (a: number, b: number) => number
+){
+    calcfunc(a, b);
+};
