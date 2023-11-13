@@ -45,3 +45,22 @@ hobbies = ['Sports', 'Cooking'];
 let recipes: {prepTime: number; difficulty: string; serves: number; vegan: boolean}[];
 
 //This will be an array of recipe objects with the properties shown above.
+
+//Functions
+// You can set the type of the parameters as below
+// The type for the return alue is after the parameters outside the brackets.
+// The type for the return value for this function is void because it doesn't return anything. You could use undefined but void is better.
+
+function add(a: number, b: string): void {
+    // result is inferred to be of type number because typescript knows that a and b are numbers.
+    const result = a + b;
+    console.log(result);
+}
+
+// If you have a return value, you can set the type of the return value as below - but in this case the return value is inferd to be a number because typescript knows that a and b are numbers:
+
+function add2(a: number, b: number): number {
+    // result is inferred to be of type number because typescript knows that a and b are numbers.
+    const result = a + b;
+    return result;
+}
