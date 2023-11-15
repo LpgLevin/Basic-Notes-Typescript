@@ -101,3 +101,54 @@ let veganCake: Recipe = {
     vegan: true
 };
 
+// You can use the type key word to do the same thing. The interafce key word does not allow you to store union types.
+//However there are some advantages to using the interface key word. If you are making a class, you can set the types:
+
+interface Credentials {
+    email: string;
+    username: string;
+    password: string;
+}
+
+let userLily: Credentials = {
+    email: 'lpglevin@gmail.com',
+    username: 'Lily',
+    password: 'password'
+}
+
+// Then use them in a class like so:
+
+class AuthCredentials implements Credentials {
+    email: string;
+    username: string;
+    password: string;
+    // you can add more properties if you want but it will throw an error if you don't add the properties from the interface.
+    
+}
+
+function login(details: Credentials){
+    // uses the user object to log in
+}
+
+//call the login function on a user object like so:
+
+login( userLily );
+
+//OR - call the function on a new instance of the class like so:
+
+login( new AuthCredentials() );
+
+// in conclusion, the interface key word is better if you are using classes.
+// and interface is extendable. You can redfine the same interface with the same name and add more properties or methods to it.
+
+// interface Credentials {
+//     age: number
+// } 
+
+
+// the above just adds the age property to the interface. You can't do this with the type key word. This may not be necessary for a small project where you can just edit the original interface, but tis allows remote devs to add to the interface without having access to the original declaration. If you un-comment the above code, you will see that the login function can no longer be called on the new instance of the class (red line will appear on lines 121 and 139) because the declaration of the class AuthCredentials no longer fullfils its type, Credentials, which requires an age property. 
+
+
+// In most cases, it doesn't matter if you use interface or type. It's just a matter of preference. I personally feel as though type might be safer in the same way that const is safer than let. It's more restrictive. But I'm not sure. I need to do more research on this.
+
+
