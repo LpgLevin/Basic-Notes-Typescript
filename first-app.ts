@@ -76,7 +76,7 @@ function calculate(
 };
 
 // creating custom types
-// by using the type key word and storing the type assignments in the variable name, you don't have to type our the type assignments inside the parameters in the function. You can just use the variable name instead. The variable name becaomes the type.
+// by using the type key word and storing the type assignments in the variable name, you don't have to type our the type assignments inside the parameters in the function. You can just use the variable name instead. The variable name becomes the type.
 
 type Addfn = (a: number, b: number) => number;
 
@@ -84,3 +84,20 @@ type Addfn = (a: number, b: number) => number;
 function calculate2(a: number, b: number, calcFunc: Addfn){
    calcFunc(a, b);
 };
+
+// The interface key word is used to create custom types for objects. The interface is a blueprint for the object. It defines the properties and their types. The interface is used to define the type of the object.
+
+interface Recipe {
+    prepTime: number;
+    difficulty: string;
+    serves: number;
+    vegan: boolean;
+}
+
+let veganCake: Recipe = {
+    prepTime: 30,
+    difficulty: 'easy',
+    serves: 8,
+    vegan: true
+};
+
