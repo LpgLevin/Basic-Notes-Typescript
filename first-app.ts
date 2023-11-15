@@ -152,3 +152,30 @@ login( new AuthCredentials() );
 // In most cases, it doesn't matter if you use interface or type. It's just a matter of preference. I personally feel as though type might be safer in the same way that const is safer than let. It's more restrictive. But I'm not sure. I need to do more research on this.
 
 
+// Merging Types
+
+type Admin = {
+    permissions: string[];
+};
+
+type AppUser = {
+    userName: string;
+};
+
+//the above types are seperate but cna be merged - we might want to do this if we want to continue using those types seperately but also have access to a type which has the properties of both types. We can do this by using the & symbol like so:
+
+type AppAdmin = Admin & AppUser;
+
+let adminUser: AppAdmin = {
+    permissions: ['create-server'],
+    userName: 'Lily'
+};
+
+// you can do all the same stuff replacing the keyword type with interface. Except for the merging part, which would be written like so:
+
+interface AppAdmin2 extends Admin, AppUser {}
+
+// Above, I am using 'AppAdmin2' to avoid an error, but its meant to represent what you would do instead of line 167. In the curly brackets, you can either add more properties or you can leave it blank.
+
+
+
