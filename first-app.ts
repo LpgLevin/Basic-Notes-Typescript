@@ -7,10 +7,20 @@ let userAge = 33;
 // and a boolean to a string;
 let isValid = true;
 //isValid = 'yes';
+
+
+
+//----------------------------------------------------UNION TYPES----------------------------------------------------
+
   
 //the below tells typescript that userID is either a string or a number.
 let userID: string | number ='abc1';
 userID = 123;
+
+
+
+//----------------------------------------------------OBJECT TYPES----------------------------------------------------
+
 
 //This is how we tell typescript that the variable is an object with specific properties and their types.
 //setting the type/types of user:
@@ -28,7 +38,10 @@ user = {
     id: 'abc1' //123
 }
 
-//Arrays
+
+
+//----------------------------------------------------ARRAY TYPES----------------------------------------------------
+
 //When you set the type as an array, unlike the other type, you need to use a capital letter.
 //Array cannot be set as a type without more information. You need to tell typescript what types will be in the array like so:
 
@@ -50,6 +63,10 @@ let recipes: {prepTime: number; difficulty: string; serves: number; vegan: boole
 // You can set the type of the parameters as below
 // The type for the return alue is after the parameters outside the brackets.
 // The type for the return value for this function is void because it doesn't return anything. You could use undefined but void is better.
+
+
+//----------------------------------------------------FUNCTION TYPES----------------------------------------------------
+
 
 function add(a: number, b: string): void {
     // result is inferred to be of type number because typescript knows that a and b are numbers.
@@ -85,6 +102,11 @@ function calculate2(a: number, b: number, calcFunc: Addfn){
    calcFunc(a, b);
 };
 
+
+
+//----------------------------------------------------INTERFACE KEY WORD----------------------------------------------------
+
+
 // The interface key word is used to create custom types for objects. The interface is a blueprint for the object. It defines the properties and their types. The interface is used to define the type of the object.
 
 interface Recipe {
@@ -117,6 +139,9 @@ let userLily: Credentials = {
 }
 
 // Then use them in a class like so:
+
+//----------------------------------------------------CLASSES----------------------------------------------------
+
 
 class AuthCredentials implements Credentials {
     email: string;
@@ -152,7 +177,9 @@ login( new AuthCredentials() );
 // In most cases, it doesn't matter if you use interface or type. It's just a matter of preference. I personally feel as though type might be safer in the same way that const is safer than let. It's more restrictive. But I'm not sure. I need to do more research on this.
 
 
-// Merging Types
+
+//----------------------------------------------------MERGING TYPES----------------------------------------------------
+
 
 type Admin = {
     permissions: string[];
@@ -162,7 +189,7 @@ type AppUser = {
     userName: string;
 };
 
-//the above types are seperate but cna be merged - we might want to do this if we want to continue using those types seperately but also have access to a type which has the properties of both types. We can do this by using the & symbol like so:
+//the above types are seperate but can be merged - we might want to do this if we want to continue using those types seperately but also have access to a type which has the properties of both types. We can do this by using the & symbol like so:
 
 type AppAdmin = Admin & AppUser;
 
@@ -176,6 +203,17 @@ let adminUser: AppAdmin = {
 interface AppAdmin2 extends Admin, AppUser {}
 
 // Above, I am using 'AppAdmin2' to avoid an error, but its meant to represent what you would do instead of line 167. In the curly brackets, you can either add more properties or you can leave it blank.
+
+//----------------------------------------------------LITERAL TYPES----------------------------------------------------
+
+//If i want the 'role' type to be a string, but only one of three specific strings, e.g. 'admin', 'user' or 'editor' I can do this:
+
+let role: 'admin' | 'user' | 'editor'; 
+
+role = 'admin';
+role = 'user';
+role = 'editor';
+//role = 'moderator'; // If you uncomment, this will throw an error because 'moderator' is not one of the three strings specified in the type.
 
 
 
