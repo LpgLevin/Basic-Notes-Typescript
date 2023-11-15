@@ -204,16 +204,94 @@ interface AppAdmin2 extends Admin, AppUser {}
 
 // Above, I am using 'AppAdmin2' to avoid an error, but its meant to represent what you would do instead of line 167. In the curly brackets, you can either add more properties or you can leave it blank.
 
+
+
+
 //----------------------------------------------------LITERAL TYPES----------------------------------------------------
 
 //If i want the 'role' type to be a string, but only one of three specific strings, e.g. 'admin', 'user' or 'editor' I can do this:
 
-let role: 'admin' | 'user' | 'editor'; 
+type Role = 'admin' | 'user' | 'editor'; 
 
-role = 'admin';
-role = 'user';
-role = 'editor';
-//role = 'moderator'; // If you uncomment, this will throw an error because 'moderator' is not one of the three strings specified in the type.
+let roleName: Role;
 
+roleName = 'admin';
+roleName = 'user';
+roleName = 'editor';
+//roleName = 'moderator'; 
+
+// If you uncomment that last line, this will throw an error because 'moderator' is not one of the three strings specified in the type.
+
+
+
+
+//----------------------------------------------------ADDING TYPE GUARDS----------------------------------------------------
+
+//Sometimes you might want a piece of code ONLY to be executed if you have a value of one of the accepted types. For example, if you have a union type which takes a string or a number, you might want to do something with the value if it is a string, but not if it is a number. You can do this with a type guard.
+
+function performAction(action: string, roleName: Role) {
+    if (roleName === 'admin' && typeof action === 'string') {
+        // do something
+    }
+};
+
+//So I think type guards are just if statements to double check the types in the case that multiple types/specific values are allowed?
+
+// Type Guards & Type Narrowing - A Closer Look
+// When using "Type Guards" (i.e., if statements that check which concrete type is being used), TypeScript performs so-called "Type Narrowing".
+
+// This means that TypeScript is able to narrow a broader type down to a more specific type.
+
+// Consider this example:
+
+function combine(a: number | string, b: number | string) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b;
+  }
+ 
+  return `${a} ${b}`;
+}
+// In this example, inside the if statement, TypeScript narrows the types of a & b from "either a number or a string" down to "definitely a number" - because that's what the condition of the if check says (and TypeScript "understands" that).
+
+// After the if statement, TypeScript understands that a and b are again either a number or a string"  because we only make it into the if statement if both are of type number. The type therefore is broader again.
+
+// You can add all kinds of "Type Guards" to run code conditionally and get TypeScript to narrow a type:
+
+// Use JavaScript's typeof operator as shown above to check if you're dealing with a string, number, boolean, object, function, symbol or bigint type
+
+// Use JavaScript's instanceof operator to check if an object value is based on some specific class
+
+// Use JavaScript's in operator to check if an object contains a specific property
+
+// Important: You can NOT check if a value meets the definition of a custom type (type alias) or interface type. These are TypeScript-specific features for which no JavaScript equivalent exists. Therefore, since those if checks need to run at runtime, you can't write any code that would be able to check for those types at runtime.
+
+// For example, the below code won't work because the User type does not exist once the code is compiled to JavaScript:
+
+
+type User2 = {
+  name: string;
+  age: number;
+};
+ 
+type Admin2 = {
+  name: string;
+  age: number;
+  permissions: string[];
+};
+ 
+function login2(u: User2 | Admin2) {
+  //if (typeof u === User2) {
+    // do something
+ // } -------------------------------------------------Uncomment this code to see the problem!
+}
+
+// But you could check for the existence of the permissions property since only the Admin object will have one:
+
+function login3(u: User2 | Admin2) {
+  if ('permissions' in u) {
+    // do something
+  }
+}
+// That code would work at runtime.
 
 
