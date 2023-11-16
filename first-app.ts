@@ -351,3 +351,15 @@ newUser.age //autocomplete options because you've defined the types of the prope
 
 // From my understanding so far, generic types are like classes for types. Aka, you can make a type which is inflexible and has to be fillfilled exactly - but you can make a template for a type AKA a PARENT/generic type, from which you can create new instances, and that new instance becomes the specific and inflexible type.
 
+
+
+
+//----------------------------------------COMPILING YOUR CODE----------------------------------------
+
+// To complie the code you can use:
+
+// npx tsc first-app.ts
+
+// Inyour terminal. This will create a new file called first-app.js which is the compiled version of your typescript file. 
+
+//Before the converstion, the code will be checked for errors. If there are errors, the code will not be compiled. If there are no errors, the code will be compiled and you will see the new file in your directory. However you should have been able to see most errors in your IDE before you even tried to compile the code. (red lines under the errors)
