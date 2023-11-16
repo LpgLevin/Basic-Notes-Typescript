@@ -295,3 +295,59 @@ function login3(u: User2 | Admin2) {
 // That code would work at runtime.
 
 
+
+
+//----------------------------------------------------GENERIC TYPES----------------------------------------------------
+
+
+let roles: Role[];
+
+//OR
+// let roles: Array<Role>;
+
+roles = ['admin', 'user', 'editor'];
+
+
+type DataStorage<T> = {  // T is a generic type. It is a placeholder for the types within the properties' types which we can't predict.
+    storage: T[];           // The T with array brackets after means that we don't know what the types in the array will be.
+    add: (data: T) => void; // The T in the brackets after the colon means that we don't know what the type of the parameter will be.
+};
+
+// We can now use the generic type to create multiple storages for different data because its a flexible (generic) type. Like a class.
+
+const textStorage: DataStorage<string> = { //'string' replaces'T' in the type above. Almost like parameters in functions
+    storage: [],
+    add(data) {
+        this.storage.push(data);
+    } // because you have defined T as being string type, typescript knows that the data parameter must be a string.
+};
+
+const userStorage: DataStorage<User2> = {
+    storage: [],
+    add(user) {}
+};
+
+//by using the generic type DataStorage, we create a new type which is like a type-child of DataStorage. It is a specific type which has the properties of DataStorage but also has the specific types we have defined for it.
+
+
+
+
+//----------------------------------------CONFUSING GENERIC FUNCTION TYPES----------------------------------------
+
+function merge<T,U>(a: T, b: U) {
+    return {
+        ...a,
+        ...b
+    };
+};
+
+const newUser = merge<{ name: string }, { age: number }>( 
+    { name: 'Lily' }, 
+    { age: 33 } 
+);
+
+
+newUser.age //autocomplete options because you've defined the types of the properties in the merge function. Try deleting the age part and see what the IDE offers you.
+
+// From my understanding so far, generic types are like classes for types. Aka, you can make a type which is inflexible and has to be fillfilled exactly - but you can make a template for a type AKA a PARENT/generic type, from which you can create new instances, and that new instance becomes the specific and inflexible type.
+
